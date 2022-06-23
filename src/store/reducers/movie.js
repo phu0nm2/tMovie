@@ -4,7 +4,7 @@ const initialState = {
   movieList: [],
   loading: false,
   error: null,
-  detail: null,
+  detail: [],
 };
 
 const reducers = (state = initialState, { type, payload }) => {
@@ -17,10 +17,26 @@ const reducers = (state = initialState, { type, payload }) => {
     case actionTypes.FETCH_MOVIE_SUCCESS: {
       state.loading = false;
       state.error = null;
-      state.movieList = payload;
+      state.movieList = payload.slice(0, 8);
       return { ...state };
     }
     case actionTypes.FETCH_MOVIE_FAILURE: {
+      state.loading = false;
+      state.error = payload;
+      return { ...state };
+    }
+
+    case actionTypes.FETCH_SIMILAR_REQUEST: {
+      state.loading = true;
+      return { ...state };
+    }
+    case actionTypes.FETCH_SIMILAR_SUCCESS: {
+      state.loading = false;
+      state.error = null;
+      state.movieList = payload;
+      return { ...state };
+    }
+    case actionTypes.FETCH_SIMILAR_FAILURE: {
       state.loading = false;
       state.error = payload;
       return { ...state };

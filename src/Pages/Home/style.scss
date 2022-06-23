@@ -1,0 +1,18 @@
+.home__movie {
+  position: relative;
+  &-title {
+    font-size: 2.6rem;
+    position: absolute;
+    top: 0;
+    left: 20%;
+  }
+}
+.home__tv {
+  position: relative;
+  &-title {
+    font-size: 2.6rem;
+    position: absolute;
+    top: 0;
+    left: 20%;
+  }
+}

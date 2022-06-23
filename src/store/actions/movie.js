@@ -1,17 +1,25 @@
 import { actionTypes } from "./type";
 import { createAction } from ".";
-// import axiosClient from "../../api/axiosClient";
-// import { API_KEY } from "../../api/apiKey";
-import { tmdbApi } from "../../api/tmdbApi";
+import { movieType, tmdbApi } from "../../api/tmdbApi";
 
-export const fetchMovieList = () => async (dispatch) => {
+export const fetchMovieList = (type) => async (dispatch) => {
   try {
     dispatch(createAction(actionTypes.FETCH_MOVIE_REQUEST, {}));
-    const { data } = await tmdbApi.getMovieList();
+    const { data } = await tmdbApi.getMovieList(movieType[type]);
     dispatch(createAction(actionTypes.FETCH_MOVIE_SUCCESS, data.results));
   } catch (err) {
     dispatch(createAction(actionTypes.FETCH_MOVIE_FAILURE, err));
     console.log(err);
+  }
+};
+
+export const fetchMovieSimilar = (id) => async (dispatch) => {
+  try {
+    dispatch(createAction(actionTypes.FETCH_SIMILAR_REQUEST, {}));
+    const { data } = await tmdbApi.similar(id);
+    dispatch(createAction(actionTypes.FETCH_SIMILAR_SUCCESS, data.results));
+  } catch (err) {
+    dispatch(createAction(actionTypes.FETCH_SIMILAR_FAILURE, err));
   }
 };
 

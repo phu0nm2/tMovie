@@ -1,6 +1,6 @@
 import React from "react";
 
-const VideoTrailer = () => {
+const VideoTrailer = ({ url }) => {
   const { movieList } = React.useSelector((state) => state.movieList);
 
   return (

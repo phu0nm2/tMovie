@@ -1,12 +1,4 @@
 import axiosClient from "./axiosClient";
-// import { API_KEY } from "../constants/apiKey";
-
-// export const tmdbApi = {
-//   getMovieList: () => {
-//     const url = "movie/popular";
-//     return axiosClient.get(url);
-//   },
-// };
 
 export const category = {
   movie: "movie",
@@ -26,21 +18,32 @@ export const tvType = {
 };
 
 export const tmdbApi = {
-  getMovieList: () => {
-    const url = "movie/popular";
+  getMovieList: (type) => {
+    const url = `movie/${movieType[type]}`;
     return axiosClient.get(url, {
       params: { page: 1 },
     });
   },
 
-  getTvList: (type, params) => {
-    const url = "tv/" + tvType[type];
-    return axiosClient.get(url, params);
+  getTvList: (type) => {
+    const url = `tv/${tvType[type]}`;
+    return axiosClient.get(url, {
+      params: { page: 1 },
+    });
   },
 
-  getVideos: (cate, id) => {
-    const url = category[cate] + "/" + id + "/videos";
-    return axiosClient.get(url, { params: {} });
+  // getTvList: (type, params) => {
+  //   const url = "tv/" + tvType[type];
+  //   return axiosClient.get(url, params);
+  // },
+
+  getVideos: (id) => {
+    const url = `movie/${id}/movies`;
+    return axiosClient.get(url, {
+      params: {
+        movie_id: id,
+      },
+    });
   },
 
   search: (cate, params) => {
@@ -54,7 +57,7 @@ export const tmdbApi = {
   // },
 
   detail: (id) => {
-    const url = "movie";
+    const url = `movie/${id}`;
     return axiosClient.get(url, {
       params: {
         movie_id: id,
@@ -67,8 +70,17 @@ export const tmdbApi = {
     return axiosClient.get(url, { params: {} });
   },
 
-  similar: (cate, id) => {
-    const url = category[cate] + "/" + id + "/similar";
-    return axiosClient.get(url, { params: {} });
+  // similar: (cate, id) => {
+  //   const url = category[cate] + "/" + id + "/similar";
+  //   return axiosClient.get(url, { params: {} });
+  // },
+
+  similar: (id) => {
+    const url = `movie/${id}/similar`;
+    return axiosClient.get(url, {
+      params: {
+        movie_id: id,
+      },
+    });
   },
 };

@@ -9,17 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 import "./styles.scss";
 
-const MovieItem = ({ movieItem }) => {
+const TvItem = ({ tvItem }) => {
   let navigate = useNavigate();
 
   // const watchMovie = () => {
   //   // navigate.push("/move/ + " + movies.id);
-  //   navigate("/movie/", {
-  //     state: { name: movieItem.id },
+  //   navigate("/tv/", {
+  //     state: { name: tvItem.id },
   //   });
   // };
 
-  const { id, overview, poster_path, title } = movieItem;
+  const { id, overview, poster_path, backdrop_path, name, original_name } =
+    tvItem;
 
   return (
     <div className="movie">
@@ -28,15 +29,18 @@ const MovieItem = ({ movieItem }) => {
           <div className="movie-home-card">
             <img
               className="movie-home-img"
-              src={apiConfig.w500Image(poster_path)}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              src={apiConfig.w500Image(
+                poster_path ? poster_path : backdrop_path
+              )}
               alt=""
             />
             {/* <img className="movie-home-img" src={backdrop_path} alt="" /> */}
           </div>
         </div>
-        <h4 className="text-white movie-home-title">{title}</h4>
+        <h4 className="text-white movie-home-title">{name}</h4>
         <p className="text-gray-100 movie-home-text">
-          {overview.substr(0, 100) + ".."}
+          {overview ? overview.substr(0, 100) + ".." : original_name}
         </p>
 
         {/* <div className="btns">
@@ -51,4 +55,4 @@ const MovieItem = ({ movieItem }) => {
   );
 };
 
-export default MovieItem;
+export default TvItem;

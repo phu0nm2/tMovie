@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import LoadingSpin from "../../components/LoadingSpin";
 
 const Layout = ({ loading, children }) => {
+  console.log("child", children);
   return (
     <React.Fragment>
       <Header />

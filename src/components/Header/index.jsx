@@ -1,29 +1,14 @@
 import React, { useEffect } from "react";
 import "./style.scss";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/img/logo.jpg";
-
-const headerNav = [
-  {
-    display: "Home",
-    path: "/",
-  },
-  {
-    display: "Movies",
-    path: "/movie",
-  },
-  {
-    display: "TV Series",
-    path: "/tv",
-  },
-];
+import { Button } from "../Button";
 
 const Header = () => {
-  const { pathname } = useLocation();
+  const [keyword, setKeyword] = React.useState();
   const headerRef = React.useRef(null);
-  const active = headerNav.findIndex((e) => e.path === pathname);
 
   useEffect(() => {
     const shrinkHeader = () => {
@@ -40,26 +25,38 @@ const Header = () => {
     window.addEventListener("scroll", shrinkHeader);
 
     return () => {
-      window.addEventListener("scroll", shrinkHeader);
+      window.removeEventListener("scroll", shrinkHeader);
     };
   }, []);
 
   return (
-    <div ref={headerRef} className="header">
-      <div className="header__wrap container">
+    <header ref={headerRef} className="header">
+      <div className="header__wrap ">
         <div className="logo">
           <img src={logo} alt="logo" />
           <Link to="/">tMovies</Link>
         </div>
+
+        <div className="header__actions">
+          <input
+            type="text"
+            className="header__form-input"
+            placeholder="Search..."
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </div>
+
         <ul className="header__nav">
-          {headerNav.map((nav, i) => (
-            <li key={i} className={`${i === active ? "active" : ""}`}>
-              <Link to={nav.path}>{nav.display}</Link>
-            </li>
-          ))}
+          <Link to="/">
+            <div className="header__nav-home">Home</div>
+          </Link>
+          <Link to="/login">
+            <Button>Log in</Button>
+          </Link>
         </ul>
       </div>
-    </div>
+    </header>
   );
 };
 

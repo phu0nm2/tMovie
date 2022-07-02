@@ -11,10 +11,10 @@
     border-radius: 50px;
   }
 
-  @include mobile {
-    width: 300px;
-    margin-right: 0;
-  }
+  // @include mobile {
+  //   width: 300px;
+  //   margin-right: 0;
+  // }
 }
 
 .header {
@@ -37,9 +37,9 @@
     height: 100%;
     padding: 0 2rem;
 
-    @include mobile {
-      justify-content: center;
-    }
+    // @include mobile {
+    //   justify-content: center;
+    // }
   }
 
   &__nav {
@@ -49,7 +49,7 @@
       margin-left: 2rem;
     }
 
-    li {
+    &-home {
       position: relative;
       font-weight: 600;
       font-size: 1.5rem;
@@ -72,20 +72,50 @@
       }
     }
 
-    @include mobile {
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      height: 5rem;
-      background-color: $body-bg;
-      padding: 0 2rem;
-      box-shadow: $box-shadow;
+    // @include mobile {
+    //   position: fixed;
+    //   width: 100%;
+    //   bottom: 0;
+    //   left: 0;
+    //   height: 5rem;
+    //   background-color: $body-bg;
+    //   padding: 0 2rem;
+    //   box-shadow: $box-shadow;
 
-      @include flex(center, space-between);
+    //   @include flex(center, space-between);
 
-      & > * ~ * {
-        margin-left: 0;
+    //   & > * ~ * {
+    //     margin-left: 0;
+    //   }
+    // }
+  }
+
+  .header__actions {
+    .header__form {
+      border: none;
+      border-radius: 16px;
+      position: relative;
+      height: 40px;
+      background-color: #151f30;
+
+      &-input {
+        width: 100%;
+        height: 40px;
+        border-radius: 16px;
+        background-color: #151f30;
+        border: none;
+        padding: 0 60px 0 20px;
+        font-size: 14px;
+        color: #fff;
+      }
+
+      &--active {
+        pointer-events: auto;
+        bottom: 0;
+      }
+
+      &-btn {
+        display: none;
       }
     }
   }

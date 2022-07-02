@@ -1,42 +1,43 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
 
-import { Container, Grid } from "@material-ui/core";
+// import { Container, Grid } from "@material-ui/core";
 
-import { fetchTvList } from "../../store/actions/tv";
+// import { fetchTvList } from "../../store/actions/tv";
 
-import TvItem from "../TvItem";
-import Layout from "../../HOCs/Layout";
+// import TvItem from "../TvItem";
+// import Layout from "../../HOCs/Layout";
 
-import "./style.scss";
+// import "./style.scss";
 
-const TvList = ({ type }) => {
-  const dispatch = useDispatch();
-  const { loading, tvList } = useSelector((state) => state.tvList);
+// const TvList = (props) => {
+//   const dispatch = useDispatch();
+//   const { loading, tvList } = useSelector((state) => state.tvList);
 
-  React.useEffect(() => {
-    dispatch(fetchTvList(type));
-  }, [dispatch, type]);
+//   React.useEffect(() => {
+//     const params = {};
+//     dispatch(fetchTvList(props.type, { params }));
+//   }, [dispatch, props.type]);
 
-  // if (loading) return <div>loading...</div>;
+//   // if (loading) return <div>loading...</div>;
 
-  return (
-    <Layout loading={loading}>
-      <div className="bg-gray-900">
-        <Container maxWidth="lg">
-          <Grid container spacing={3}>
-            {tvList?.map((item) => {
-              return (
-                <Grid key={item.id} item xs={12} sm={6} md={3}>
-                  <TvItem tvItem={item} />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Container>
-      </div>
-    </Layout>
-  );
-};
+//   return (
+//     <Layout loading={loading}>
+//       <div className="bg-gray-900">
+//         <Container maxWidth="lg">
+//           <Grid container spacing={3}>
+//             {tvList?.map((item) => {
+//               return (
+//                 <Grid key={item.id} item xs={12} sm={6} md={3}>
+//                   <TvItem tvItem={item} />
+//                 </Grid>
+//               );
+//             })}
+//           </Grid>
+//         </Container>
+//       </div>
+//     </Layout>
+//   );
+// };
 
-export default TvList;
+// export default TvList;

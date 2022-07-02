@@ -1,31 +1,68 @@
 import { actionTypes } from "../actions/type";
 
 const initialState = {
-  movieList: [],
+  moviePopular: [],
+  movieTopRated: [],
+  movieUpcoming: [],
   loading: false,
   error: null,
-  detail: [],
+  detail: null,
 };
 
 const reducers = (state = initialState, { type, payload }) => {
   switch (type) {
     // state movieList
-    case actionTypes.FETCH_MOVIE_REQUEST: {
+    case actionTypes.FETCH_POPULAR_REQUEST: {
       state.loading = true;
       return { ...state };
     }
-    case actionTypes.FETCH_MOVIE_SUCCESS: {
+    case actionTypes.FETCH_POPULAR_SUCCESS: {
       state.loading = false;
       state.error = null;
-      state.movieList = payload.slice(0, 8);
+      state.moviePopular = payload;
       return { ...state };
     }
-    case actionTypes.FETCH_MOVIE_FAILURE: {
+    case actionTypes.FETCH_POPULAR_FAILURE: {
       state.loading = false;
       state.error = payload;
       return { ...state };
     }
 
+    //top rated
+    case actionTypes.FETCH_TOP_RATED_REQUEST: {
+      state.loading = true;
+      return { ...state };
+    }
+    case actionTypes.FETCH_TOP_RATED_SUCCESS: {
+      state.loading = false;
+      state.error = null;
+      state.movieTopRated = payload;
+      return { ...state };
+    }
+    case actionTypes.FETCH_TOP_RATED_FAILURE: {
+      state.loading = false;
+      state.error = payload;
+      return { ...state };
+    }
+
+    //up coming
+    case actionTypes.FETCH_UPCOMING_REQUEST: {
+      state.loading = true;
+      return { ...state };
+    }
+    case actionTypes.FETCH_UPCOMING_SUCCESS: {
+      state.loading = false;
+      state.error = null;
+      state.movieUpcoming = payload;
+      return { ...state };
+    }
+    case actionTypes.FETCH_UPCOMING_FAILURE: {
+      state.loading = false;
+      state.error = payload;
+      return { ...state };
+    }
+
+    //similar
     case actionTypes.FETCH_SIMILAR_REQUEST: {
       state.loading = true;
       return { ...state };
@@ -37,6 +74,23 @@ const reducers = (state = initialState, { type, payload }) => {
       return { ...state };
     }
     case actionTypes.FETCH_SIMILAR_FAILURE: {
+      state.loading = false;
+      state.error = payload;
+      return { ...state };
+    }
+
+    // search
+    case actionTypes.FETCH_SEARCH_REQUEST: {
+      state.loading = true;
+      return { ...state };
+    }
+    case actionTypes.FETCH_SEARCH_SUCCESS: {
+      state.loading = false;
+      state.error = null;
+      state.movieList = payload;
+      return { ...state };
+    }
+    case actionTypes.FETCH_SEARCH_FAILURE: {
       state.loading = false;
       state.error = payload;
       return { ...state };

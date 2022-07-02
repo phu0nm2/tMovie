@@ -1,12 +1,13 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
-import movieList from "./reducers/movie";
-import tvList from "./reducers/tv";
+import movies from "./reducers/movie";
+// import tvList from "./reducers/tv";
 
 const rootReducer = combineReducers({
-  movieList,
-  tvList,
+  movies,
+
+  // tvList,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

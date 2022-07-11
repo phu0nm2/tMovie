@@ -17,7 +17,7 @@ const MovieTopRated = (props) => {
   React.useEffect(() => {
     const params = { page: 1 };
     dispatch(fetchMovieTopRated({ params }));
-  }, [dispatch, props]);
+  }, [dispatch]);
 
   // if (loading) return <div>loading...</div>;
 

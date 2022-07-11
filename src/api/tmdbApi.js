@@ -48,8 +48,8 @@ export const tmdbApi = {
     return axiosClient.get(url, { params: {} });
   },
 
-  search: (cate, params) => {
-    const url = "search/" + category[cate];
+  search: (params) => {
+    const url = `search/multi?keywords=${params}`;
     return axiosClient.get(url, params);
   },
 

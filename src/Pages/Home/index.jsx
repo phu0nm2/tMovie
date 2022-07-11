@@ -4,29 +4,34 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import MovieList from "../../components/MovieList";
-import TvList from "../../components/TvList";
+// import TvList from "../../components/TvList";
 
 import Layout from "../../HOCs/Layout";
 
 import "./style.scss";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const { loading } = useSelector((state) => state.movies);
+
   return (
     <>
-      {/* <Layout> */}
-      <Header></Header>
+      <Layout loading={loading}>
+        <Header></Header>
 
-      <MovieList></MovieList>
+        <MovieList></MovieList>
 
-      {/* <div className="home__tv">
+        {/* <SearchMovies></SearchMovies> */}
+
+        {/* <div className="home__tv">
         <h2 className="home__tv-title">TV</h2>
         <MovieList category={category.tv} type={tvType.popular}></MovieList>
       </div>  */}
 
-      {/* </Layout> */}
-      {/* <Modal></Modal> */}
+        {/* <Modal></Modal> */}
 
-      <Footer></Footer>
+        <Footer></Footer>
+      </Layout>
     </>
   );
 };

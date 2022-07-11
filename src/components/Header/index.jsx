@@ -1,33 +1,82 @@
 import React, { useEffect } from "react";
 import "./style.scss";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/img/logo.jpg";
 import { Button } from "../Button";
+import { fetchSearchMovie } from "../../store/actions/movie";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const [keyword, setKeyword] = React.useState();
+  const { searchMovies } = useSelector((state) => state.movies);
+  const [keywords, setKeyword] = React.useState("");
+
   const headerRef = React.useRef(null);
+  // const inputRef = React.useRef();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const shrinkHeader = () => {
+    const params = {
+      query: keywords,
+    };
+
+    if (!keywords) {
+      return;
+    }
+    const handleRedirect = () => {
+      navigate(`/search`);
+      // inputRef.current.focus();
+    };
+    dispatch(fetchSearchMovie({ params }, handleRedirect));
+
+    // if (keywords.length > 0) {
+    //   navigate(`/search?keywords=${keywords.trim()}`);
+    //   dispatch(fetchSearchMovie({ params }));
+    // }
+
+    // else {
+    //   navigate("/");
+    // }
+  }, [dispatch, keywords, navigate]);
+
+  useEffect(() => {
+    const headerFixed = () => {
       if (
         document.body.scrollTop > 100 ||
         document.documentElement.scrollTop > 100
       ) {
-        headerRef.current.classList.add("shrink");
+        headerRef.current.classList.add("header__fixed");
       } else {
-        headerRef.current.classList.remove("shrink");
+        headerRef.current.classList.remove("header__fixed");
       }
     };
 
-    window.addEventListener("scroll", shrinkHeader);
+    window.addEventListener("scroll", headerFixed);
 
     return () => {
-      window.removeEventListener("scroll", shrinkHeader);
+      window.removeEventListener("scroll", headerFixed);
     };
   }, []);
+
+  // Can search movies but it's still bug
+  // let handleSearch = (e) => {
+  //   let keywords = e.target.value;
+  //   const params = {
+  //     query: keywords,
+  //   };
+
+  //   if (keywords.length > 0) {
+  //     navigate(`/search?keywords=${keywords.trim()}`);
+  //     dispatch(fetchSearchMovie({ params }));
+  //   } else {
+  //     navigate("/");
+  //   }
+  //   setKeyword(keywords);
+  // };
 
   return (
     <header ref={headerRef} className="header">
@@ -39,10 +88,11 @@ const Header = () => {
 
         <div className="header__actions">
           <input
+            // ref={inputRef}
             type="text"
             className="header__form-input"
             placeholder="Search..."
-            value={keyword}
+            value={keywords}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </div>
@@ -51,8 +101,8 @@ const Header = () => {
           <Link to="/">
             <div className="header__nav-home">Home</div>
           </Link>
-          <Link to="/login">
-            <Button>Log in</Button>
+          <Link to="/signin">
+            <Button>Sign in</Button>
           </Link>
         </ul>
       </div>

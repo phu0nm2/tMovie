@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   error: null,
   detail: null,
+  searchMovies: null,
 };
 
 const reducers = (state = initialState, { type, payload }) => {
@@ -87,7 +88,7 @@ const reducers = (state = initialState, { type, payload }) => {
     case actionTypes.FETCH_SEARCH_SUCCESS: {
       state.loading = false;
       state.error = null;
-      state.movieList = payload;
+      state.searchMovies = payload;
       return { ...state };
     }
     case actionTypes.FETCH_SEARCH_FAILURE: {

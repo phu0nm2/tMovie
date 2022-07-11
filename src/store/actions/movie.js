@@ -44,15 +44,17 @@ export const fetchMovieSimilar = (category, id) => async (dispatch) => {
   }
 };
 
-export const fetchSearchMovie = (type, params) => async (dispatch) => {
-  try {
-    dispatch(createAction(actionTypes.FETCH_SEARCH_REQUEST, {}));
-    const { data } = await tmdbApi.search(movieType[type], params);
-    dispatch(createAction(actionTypes.FETCH_SEARCH_SUCCESS, data.results));
-  } catch (err) {
-    dispatch(createAction(actionTypes.FETCH_SEARCH_FAILURE, err));
-  }
-};
+export const fetchSearchMovie =
+  (params, handleRedirect) => async (dispatch) => {
+    try {
+      dispatch(createAction(actionTypes.FETCH_SEARCH_REQUEST, {}));
+      const { data } = await tmdbApi.search(params);
+      dispatch(createAction(actionTypes.FETCH_SEARCH_SUCCESS, data.results));
+      handleRedirect();
+    } catch (err) {
+      dispatch(createAction(actionTypes.FETCH_SEARCH_FAILURE, err));
+    }
+  };
 
 export const fetchMovieDetailById = (id) => async (dispatch) => {
   try {

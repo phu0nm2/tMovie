@@ -81,9 +81,7 @@ const Detail = () => {
               </div>
             </TabPane>
             <TabPane tab="Thông tin chi tiết" key="2">
-              <div style={{ width: "60%", margin: "0 auto" }}>
-                {detail?.overview}
-              </div>
+              <div className="detail-movieInfo">{detail?.overview}</div>
             </TabPane>
             <TabPane tab="Hình ảnh" key="3">
               <div style={{ textAlign: "center" }}>
@@ -101,12 +99,14 @@ const Detail = () => {
 
             <TabPane tab="Trailer" key="4">
               <div
+                className="detail-movieInfo"
                 style={{
                   margin: "0 auto",
                   width: "40%",
                   textAlign: "center",
                   border: "1px solid #fff",
                   borderRadius: "10px",
+                  padding: "5px 0",
                 }}
               >
                 Đang cập nhật

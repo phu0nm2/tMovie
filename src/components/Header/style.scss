@@ -27,7 +27,7 @@
 
   transition: height 0.3s ease, background-color 0.3s ease;
 
-  &.shrink {
+  &__fixed {
     height: $header-shrink-height;
     background-color: $body-bg;
   }
@@ -36,10 +36,6 @@
     @include flex(center, space-between);
     height: 100%;
     padding: 0 2rem;
-
-    // @include mobile {
-    //   justify-content: center;
-    // }
   }
 
   &__nav {
@@ -71,23 +67,6 @@
         width: 100%;
       }
     }
-
-    // @include mobile {
-    //   position: fixed;
-    //   width: 100%;
-    //   bottom: 0;
-    //   left: 0;
-    //   height: 5rem;
-    //   background-color: $body-bg;
-    //   padding: 0 2rem;
-    //   box-shadow: $box-shadow;
-
-    //   @include flex(center, space-between);
-
-    //   & > * ~ * {
-    //     margin-left: 0;
-    //   }
-    // }
   }
 
   .header__actions {

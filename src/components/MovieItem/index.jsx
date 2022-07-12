@@ -24,8 +24,8 @@ const MovieItem = ({ movieItem }) => {
   const { id, overview, poster_path, title, backdrop_path, known_for, name } =
     movieItem;
 
-  const renderImg = () => {
-    return known_for?.slice(0, 1).map((imgItem) => (
+  const renderImg = () =>
+    known_for?.slice(0, 1).map((imgItem) => (
       <React.Fragment key={imgItem.id}>
         <img
           className="movie-home-img"
@@ -47,7 +47,6 @@ const MovieItem = ({ movieItem }) => {
         </p>
       </React.Fragment>
     ));
-  };
 
   return (
     <div className="movie">

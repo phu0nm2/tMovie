@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   detail: null,
   searchMovies: null,
+  videos: [],
 };
 
 const reducers = (state = initialState, { type, payload }) => {
@@ -114,8 +115,22 @@ const reducers = (state = initialState, { type, payload }) => {
       return { ...state };
     }
 
-    //
-
+    // videos
+    case actionTypes.FETCH_VIDEOS_REQUEST: {
+      state.loading = true;
+      return { ...state };
+    }
+    case actionTypes.FETCH_VIDEOS_SUCCESS: {
+      state.loading = false;
+      state.error = null;
+      state.videos = payload;
+      return { ...state };
+    }
+    case actionTypes.FETCH_VIDEOS_FAILURE: {
+      state.loading = false;
+      state.error = payload;
+      return { ...state };
+    }
     default:
       return state;
   }

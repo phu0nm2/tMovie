@@ -7,35 +7,32 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 import "./styles.scss";
 import { useDispatch } from "react-redux";
-import { fetchRequestToken, signin } from "../../store/actions/user";
-import { useNavigate, useParams } from "react-router-dom";
+import { fetchRequestToken, generateSessionId } from "../../store/actions/user";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Layout from "../../HOCs/Layout";
+
 const SignIn = () => {
   const { loading } = useSelector((state) => state.movies);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { params } = useParams();
   const navigate = useNavigate();
 
   // sign up into TMDb is not exposed (sign up in tmbd main website)
   // so we can only log in with a valid account under ur name
 
-  React.useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) dispatch(fetchRequestToken({ params }));
-  }, [dispatch, params]);
-
   const onFinish = (values) => {
     const handleRedirect = () =>
-      // navigate(`https://www.themoviedb.org/authenticate/${currentUser}`);
-      navigate("/");
-
-    dispatch(signin(values, handleRedirect));
+      navigate(
+        `https://www.themoviedb.org/authenticate/${currentUser.request_token}`
+      );
+    dispatch(fetchRequestToken(values, handleRedirect));
+    // // console.log(currentUser.request_token);
+    // dispatch(generateSessionId(values));
   };
 
   const onFinishFailed = (errors) => {

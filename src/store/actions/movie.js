@@ -65,3 +65,13 @@ export const fetchMovieDetailById = (id) => async (dispatch) => {
     dispatch(createAction(actionTypes.FETCH_DETAIL_FAILURE, err));
   }
 };
+
+export const fetchMovieVideoById = (id) => async (dispatch) => {
+  try {
+    dispatch(createAction(actionTypes.FETCH_VIDEOS_REQUEST, {}));
+    const { data } = await tmdbApi.getVideos(id);
+    dispatch(createAction(actionTypes.FETCH_VIDEOS_SUCCESS, data.results));
+  } catch (err) {
+    dispatch(createAction(actionTypes.FETCH_VIDEOS_FAILURE, err));
+  }
+};

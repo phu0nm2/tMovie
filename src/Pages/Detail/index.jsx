@@ -4,27 +4,55 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import apiConfig from "../../api/apiConfig";
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
-import { fetchMovieDetailById } from "../../store/actions/movie";
-import "./styles.scss";
+import {
+  fetchMovieDetailById,
+  fetchMovieVideoById,
+} from "../../store/actions/movie";
 import { Tabs } from "antd";
+import { OutlineButton } from "../../components/Button";
+import YouTube from "react-youtube";
+
+import "./styles.scss";
 
 const Detail = () => {
   const { detail } = useSelector((state) => state.movies);
+  const { videos } = useSelector((state) => state.movies);
+
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { TabPane } = Tabs;
 
   React.useEffect(() => {
     dispatch(fetchMovieDetailById(id));
   }, [dispatch, detail?.id, id]);
 
-  const { TabPane } = Tabs;
+  React.useEffect(() => {
+    dispatch(fetchMovieVideoById(id));
+  }, [dispatch, id]);
 
+  const renderTrailer = () => {
+    const trailer = videos.find((video) => video.name === "Official Trailer");
+
+    return (
+      <YouTube
+        videoId={trailer?.key}
+        className={"video-trailer"}
+        opts={{ width: "100%", height: "100%" }}
+      />
+    );
+    // console.log(videos);
+  };
   return (
     <>
       <Header></Header>
       <div className="detail">
         <div className="detail__bg">
+          <div className="detail__trailer">{renderTrailer()}</div>
+          {/* <OutlineButton className="detail__trailer-btn">
+            Play Trailer
+          </OutlineButton> */}
           <img
             src={apiConfig.w500Image(
               detail?.backdrop_path || detail?.poster_path
@@ -84,9 +112,9 @@ const Detail = () => {
               <div className="detail-movieInfo">{detail?.overview}</div>
             </TabPane>
             <TabPane tab="Hình ảnh" key="3">
-              <div style={{ textAlign: "center" }}>
+              <div style={{ margin: "0 auto", width: "60%" }}>
                 <img
-                  style={{ width: 600, height: 400 }}
+                  style={{ width: "100%", maxHeight: 300 }}
                   src={apiConfig.w500Image(
                     detail?.poster_path
                       ? detail?.poster_path
@@ -109,12 +137,14 @@ const Detail = () => {
                   padding: "5px 0",
                 }}
               >
-                Đang cập nhật
+                {videos ? "Đã cập nhật" : "Đang cập nhật"}
               </div>
             </TabPane>
           </Tabs>
         </div>
       </div>
+
+      <Footer></Footer>
     </>
   );
 };

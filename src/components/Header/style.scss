@@ -23,7 +23,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 9999;
 
   transition: height 0.3s ease, background-color 0.3s ease;
 
@@ -97,5 +97,28 @@
         display: none;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-top: 20px;
+    &__fixed {
+      height: calc($header-shrink-height + 5rem);
+    }
+  }
+  .header__actions {
+    margin-right: 22px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .header {
+    margin-left: 50px;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .header {
+    margin-left: 400px;
   }
 }

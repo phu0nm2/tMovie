@@ -6,12 +6,18 @@ export const tmdbApiUser = {
     return axiosClient.get(url, { params });
   },
 
-  sessionID: ({ username, password, request_token }) => {
-    const url = "authentication/token/validate_with_login";
-    return axiosClient.post(url, {
-      username,
-      password,
-      request_token,
-    });
+  sessionID: ({ request_token }) => {
+    const url = "authentication/session/new";
+    return axiosClient.post(
+      url,
+      {
+        request_token,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   },
 };

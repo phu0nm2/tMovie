@@ -1,21 +1,22 @@
 import axiosClient from "./axiosClient";
 
 export const tmdbApiUser = {
-  getRequestToken: (params) => {
+  getRequestToken: (token) => {
     const url = "authentication/token/new";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url, { token });
   },
 
-  sessionID: ({ request_token }) => {
-    const url = "authentication/session/new";
+  signin: ({ username, password, request_token }) => {
+    const url = "authentication/token/validate_with_login";
     return axiosClient.post(
       url,
       {
-        request_token,
+        username,
+        password,
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          Authorization: "Bearer" + request_token,
         },
       }
     );

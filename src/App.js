@@ -8,8 +8,17 @@ import Detail from "./Pages/Detail";
 import SignIn from "../src/Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import SearchMovies from "./components/SearchMovies";
+// import { useDispatch } from "react-redux";
+// import { fetchRequestToken } from "./store/actions/user";
 
 const App = () => {
+  // const dispatch = useDispatch();
+
+  // React.useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!!token) dispatch(fetchRequestToken(token));
+  // }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>

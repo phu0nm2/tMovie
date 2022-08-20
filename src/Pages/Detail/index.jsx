@@ -42,7 +42,6 @@ const Detail = () => {
         opts={{ width: "100%", height: "100%" }}
       />
     );
-    // console.log(videos);
   };
   return (
     <>
@@ -50,9 +49,7 @@ const Detail = () => {
       <div className="detail">
         <div className="detail__bg">
           <div className="detail__trailer">{renderTrailer()}</div>
-          {/* <OutlineButton className="detail__trailer-btn">
-            Play Trailer
-          </OutlineButton> */}
+
           <img
             src={apiConfig.w500Image(
               detail?.backdrop_path || detail?.poster_path
@@ -61,11 +58,7 @@ const Detail = () => {
           />
         </div>
         <div className="detail__content">
-          <Tabs
-            className="detail-tabs"
-            defaultActiveKey="1"
-            // onChange={onChange}
-          >
+          <Tabs className="detail-tabs" defaultActiveKey="1">
             <TabPane tab="Thông tin phim" key="1">
               <div className="detail__info">
                 <div>

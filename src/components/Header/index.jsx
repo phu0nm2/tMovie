@@ -10,9 +10,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  // const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const [keywords, setKeywords] = React.useState("");
 
+  // const [user, setUser] = React.useState(localStorage.getItem("request_token"));
   const headerRef = React.useRef(null);
 
   const navigate = useNavigate();
@@ -33,6 +34,12 @@ const Header = () => {
     };
     dispatch(fetchSearchMovie({ params }, handleRedirect));
   };
+
+  // useEffect(() => {
+  //   const token = user?.request_token;
+
+  //   setUser(localStorage.getItem("request_token"));
+  // }, []);
 
   useEffect(() => {
     const headerFixed = () => {
@@ -80,9 +87,18 @@ const Header = () => {
             <div className="header__nav-home">Home</div>
           </Link>
 
-          {/* <Link to="/signin">
-            <Button>Sign in</Button>
-          </Link> */}
+          {currentUser ? (
+            <div>
+              <div className="header__user--profile">
+                <img src={currentUser.data?.imageUrl} alt="avatar" />
+                <span>{currentUser.data?.familyName}</span>
+              </div>
+            </div>
+          ) : (
+            <Link to="/signin">
+              <Button>Sign in</Button>
+            </Link>
+          )}
         </ul>
       </div>
     </header>

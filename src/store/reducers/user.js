@@ -13,9 +13,9 @@ const reducers = (state = initialState, { type, payload }) => {
       state.loading = true;
       return { ...state };
     case actionUsers.FETCH_RQ_TOKEN_SUCCESS:
+      state.currentUser = payload;
       state.loading = false;
       state.error = null;
-      state.currentUser = payload;
       return { ...state };
     case actionUsers.FETCH_RQ_TOKEN_FAILURE:
       state.loading = false;
@@ -27,9 +27,9 @@ const reducers = (state = initialState, { type, payload }) => {
       state.loading = true;
       return { ...state };
     case actionUsers.SIGN_IN_SUCCESS:
+      state.currentUser = payload;
       state.loading = false;
       state.error = null;
-      state.currentUser = payload;
       return { ...state };
     case actionUsers.SIGN_IN_FAILURE:
       state.loading = false;
@@ -37,6 +37,11 @@ const reducers = (state = initialState, { type, payload }) => {
       return { ...state };
     default:
       return state;
+
+    // sign in with google
+    case actionUsers.SIGN_IN_WITH_GOOGLE:
+      state.currentUser = payload;
+      return { ...state };
   }
 };
 

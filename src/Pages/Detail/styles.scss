@@ -9,6 +9,69 @@
     margin-top: 30px;
   }
 
+  &__movie {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(5rem, -30rem);
+
+    &-img {
+      width: 300px;
+      margin-right: 2rem;
+
+      &-img {
+        border-radius: 2rem;
+        box-shadow: rgba(107, 42, 42, 0.35) 0px 5px 15px;
+      }
+    }
+
+    &-wrap {
+      width: 50%;
+    }
+
+    &-name {
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    &-genres {
+      margin-bottom: 1rem;
+      span {
+        font-size: 1rem;
+        margin-right: 1rem;
+        padding: 8px;
+        border-radius: 20px;
+        border: 1px solid #fff;
+      }
+    }
+
+    &-decription {
+      position: relative;
+      font-size: 1.2rem;
+      padding-bottom: 1rem;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        z-index: 1;
+        background: rgba(128, 128, 128, 0.8);
+        width: 100%;
+        transform: translateY(200%);
+      }
+    }
+  }
+
+  &__rate {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    font-size: 1rem;
+  }
+
   &__bg {
     // position: relative;
 
@@ -49,7 +112,7 @@
   &__trailer {
     position: absolute;
 
-    top: 50%;
+    bottom: 13%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 99;
@@ -68,7 +131,7 @@
     padding-top: 20px;
     position: relative;
     z-index: 99;
-    height: 400px;
+    height: 600px;
     color: #fff !important;
 
     &::before {
@@ -105,12 +168,23 @@
     padding: 4px 0;
   }
 
-  &-movieInfo {
+  &__movieInfo {
     width: 60%;
 
     margin: 0 auto;
 
     color: #fff !important;
+    &-wrap {
+      margin: 0 auto;
+      width: 40%;
+    }
+
+    &-wrap-img {
+      border-radius: 15px;
+      z-index: 999;
+      width: 100%;
+      max-height: 530px;
+    }
   }
 
   .ant-tabs-tab {
@@ -145,7 +219,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -90%);
-  width: 1000px;
+  width: 900px;
   height: 500px;
   border: 1px solid #fff;
   margin-bottom: 20px;
@@ -161,7 +235,7 @@
 
 @media screen and (min-width: 576px) {
   .video-trailer {
-    width: 700px;
+    width: 600px;
     height: 450px;
     transform: translate(-50%, -85%);
   }
@@ -176,7 +250,7 @@
 
 @media screen and (min-width: 998px) {
   .video-trailer {
-    width: 900px;
+    width: 700px;
     height: 500px;
     transform: translate(-50%, -90%);
   }
@@ -184,7 +258,7 @@
 
 @media screen and (min-width: 1200px) {
   .video-trailer {
-    width: 1000px;
+    width: 900px;
     height: 500px;
     transform: translate(-50%, -90%);
   }

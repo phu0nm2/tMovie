@@ -11,8 +11,8 @@ import {
   fetchMovieVideoById,
 } from "../../store/actions/movie";
 import { Tabs } from "antd";
-import { OutlineButton } from "../../components/Button";
 import YouTube from "react-youtube";
+// import { EyeTwoTone } from "@ant-design/icons";
 
 import "./styles.scss";
 
@@ -43,46 +43,85 @@ const Detail = () => {
       />
     );
   };
+  const {
+    original_title,
+    vote_average,
+    vote_count,
+    release_date,
+    overview,
+    backdrop_path,
+    poster_path,
+    genres,
+    spoken_languages,
+    production_countries,
+    homepage,
+  } = detail || {};
   return (
     <>
       <Header></Header>
       <div className="detail">
         <div className="detail__bg">
-          <div className="detail__trailer">{renderTrailer()}</div>
-
           <img
-            src={apiConfig.w500Image(
-              detail?.backdrop_path || detail?.poster_path
-            )}
+            src={apiConfig.w500Image(backdrop_path || poster_path)}
             alt="movie detail"
           />
         </div>
+
         <div className="detail__content">
+          <div className="detail__movie">
+            <a href={homepage} className="detail__movie-img">
+              <img
+                className="detail__movie-img-img"
+                src={apiConfig.w500Image(
+                  poster_path ? poster_path : backdrop_path
+                )}
+                alt="hinh anh"
+              />
+            </a>
+
+            <div className="detail__movie-wrap">
+              <h1 className="detail__movie-name">{original_title}</h1>
+              <div className="detail__movie-genres">
+                {genres?.map((item) => (
+                  <span key={item.id}>{` ${item.name} `}</span>
+                ))}
+              </div>
+
+              <div className="detail__movie-decription">{overview}</div>
+
+              <div className="detail__rate">
+                <div className="detail__rate-rating">
+                  Reating: {Math.floor(vote_average)}/10
+                </div>
+                <div className="detail__rate-date">Date: {release_date}</div>
+                <div>Vote Count: {vote_count}</div>
+              </div>
+            </div>
+          </div>
+
           <Tabs className="detail-tabs" defaultActiveKey="1">
             <TabPane tab="Thông tin phim" key="1">
               <div className="detail__info">
                 <div>
-                  <div className="detail__item">
-                    Tên phim: {detail?.original_title}
-                  </div>
+                  <div className="detail__item">Tên phim: {original_title}</div>
 
                   <div className="detail__item">
                     Thể loại:
-                    {detail?.genres?.map((item) => (
+                    {genres?.map((item) => (
                       <span key={item.id}>{` ${item.name} ,`}</span>
                     ))}
                   </div>
 
                   <div className="detail__item">
                     Ngôn ngữ:
-                    {detail?.spoken_languages?.map((item, id) => (
+                    {spoken_languages?.map((item, id) => (
                       <span key={id}>{` ${item.name} , `}</span>
                     ))}
                   </div>
 
                   <div className="detail__item">
                     Quốc gia:
-                    {detail?.production_countries?.map((item, id) => (
+                    {production_countries?.map((item, id) => (
                       <span key={id}>{` ${item.name}`}</span>
                     ))}
                   </div>
@@ -90,28 +129,24 @@ const Detail = () => {
 
                 <div className="detail__items">
                   <div className="detail__item">
-                    Ngày khởi chiếu: {detail?.release_date}
+                    Ngày khởi chiếu: {release_date}
                   </div>
                   <div className="detail__item">
-                    Rating: {detail?.vote_average}
+                    Rating: {Math.floor(vote_average)}
                   </div>
-                  <div className="detail__item">
-                    Bình chọn: {detail?.vote_count}
-                  </div>
+                  <div className="detail__item">Bình chọn: {vote_count}</div>
                 </div>
               </div>
             </TabPane>
             <TabPane tab="Thông tin chi tiết" key="2">
-              <div className="detail-movieInfo">{detail?.overview}</div>
+              <div className="detail__movieInfo">{overview}</div>
             </TabPane>
             <TabPane tab="Hình ảnh" key="3">
-              <div style={{ margin: "0 auto", width: "60%" }}>
+              <div className="detail__movieInfo-wrap">
                 <img
-                  style={{ width: "100%", maxHeight: 300 }}
+                  className="detail__movieInfo-wrap-img"
                   src={apiConfig.w500Image(
-                    detail?.poster_path
-                      ? detail?.poster_path
-                      : detail?.backdrop_path
+                    poster_path ? poster_path : backdrop_path
                   )}
                   alt="hinh anh"
                 />
@@ -120,17 +155,21 @@ const Detail = () => {
 
             <TabPane tab="Trailer" key="4">
               <div
-                className="detail-movieInfo"
+                className="detail__movieInfo"
                 style={{
                   margin: "0 auto",
                   width: "40%",
                   textAlign: "center",
-                  border: "1px solid #fff",
+                  // border: "1px solid #fff",
                   borderRadius: "10px",
                   padding: "5px 0",
                 }}
               >
-                {videos ? "Đã cập nhật" : "Đang cập nhật"}
+                {videos ? (
+                  <div className="detail__trailer">{renderTrailer()}</div>
+                ) : (
+                  "Đang cập nhật"
+                )}
               </div>
             </TabPane>
           </Tabs>

@@ -61,7 +61,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header ref={headerRef} className="header container">
+    <header ref={headerRef} className="header">
       <div className="header__wrap ">
         <div className="logo">
           <Link to="/">

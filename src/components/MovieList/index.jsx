@@ -10,7 +10,7 @@ const MovieList = () => {
     <>
       <div className="movie-list">
         <div className="home__movie">
-          <h2 className="home__movie-title">Trending Movies</h2>
+          <h2 className="home__movie-title">Popular Movies</h2>
           <MoviePopular></MoviePopular>
         </div>
 

@@ -15,7 +15,7 @@ const MovieTopRated = (props) => {
   const { movieTopRated } = useSelector((state) => state.movies);
 
   React.useEffect(() => {
-    const params = { page: 1 };
+    const params = {};
     dispatch(fetchMovieTopRated({ params }));
   }, [dispatch]);
 
@@ -26,7 +26,7 @@ const MovieTopRated = (props) => {
       <div className="bg-gray-900">
         <Container maxWidth="lg">
           <Grid container spacing={3}>
-            {movieTopRated?.results?.slice(0, 4).map((item) => {
+            {movieTopRated?.results?.slice(0, 8).map((item) => {
               return (
                 <Grid key={item.id} item xs={12} sm={6} md={3}>
                   <MovieItem movieItem={item} />

@@ -14,7 +14,7 @@ const MovieUpComing = () => {
   const { movieUpcoming } = useSelector((state) => state.movies);
 
   React.useEffect(() => {
-    const params = { page: 1 };
+    const params = {};
 
     dispatch(fetchMovieUpComing({ params }));
   }, [dispatch]);

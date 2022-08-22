@@ -7,6 +7,10 @@ import { fetchMoviePopular } from "../../../store/actions/movie";
 
 import MovieItem from "../../MovieItem";
 import Layout from "../../../HOCs/Layout";
+import Pagination from "../../Pagination";
+
+import { Button } from "antd";
+import { OutlineButton } from "../../Button";
 
 import "./style.scss";
 
@@ -14,17 +18,32 @@ const MoviePopular = () => {
   const dispatch = useDispatch();
   const { moviePopular } = useSelector((state) => state.movies);
 
-  React.useEffect(() => {
-    const params = { page: 1 };
-    dispatch(fetchMoviePopular({ params }));
-  }, [dispatch]);
+  const [movies, setMovies] = React.useState([moviePopular]);
 
-  // if (loading) return <div>loading...</div>;
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
+
+  React.useEffect(() => {
+    const params = {};
+    dispatch(fetchMoviePopular({ params }));
+
+    setMovies(moviePopular.results);
+    setTotalPages(moviePopular.total_pages);
+  }, [dispatch, moviePopular.total_pages]);
+
+  const loadMore = () => {
+    // bị render 2 lần page 1
+    const params = { page: page + 1 };
+    dispatch(fetchMoviePopular({ params }));
+
+    setMovies([...movies, ...moviePopular.results]);
+    setPage(page + 1);
+  };
 
   const renderHTML = () => {
-    return moviePopular?.results?.slice(0, 8).map((item) => {
+    return movies?.map((item, index) => {
       return (
-        <Grid key={item.id} item xs={12} sm={6} md={3}>
+        <Grid key={index} item xs={12} sm={6} md={3}>
           <MovieItem movieItem={item} />
         </Grid>
       );
@@ -38,7 +57,11 @@ const MoviePopular = () => {
           <Grid container spacing={3}>
             {renderHTML()}
           </Grid>
-          {/* page */}
+          {page < totalPages ? (
+            <div className="btn-loadmore">
+              <OutlineButton onClick={loadMore}>Load More</OutlineButton>
+            </div>
+          ) : null}
         </Container>
       </div>
     </Layout>

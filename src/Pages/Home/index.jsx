@@ -17,8 +17,6 @@ const Home = () => {
   return (
     <>
       <Layout loading={loading}>
-        <Header></Header>
-
         <MovieList></MovieList>
 
         {/* <SearchMovies></SearchMovies> */}

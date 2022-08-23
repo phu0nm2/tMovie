@@ -9,22 +9,44 @@ import MovieItem from "../../MovieItem";
 import Layout from "../../../HOCs/Layout";
 
 import "./style.scss";
+import { OutlineButton } from "../../Button";
 
-const MovieTopRated = (props) => {
+const MovieTopRated = () => {
   const dispatch = useDispatch();
   const { movieTopRated } = useSelector((state) => state.movies);
+
+  const [movies, setMovies] = React.useState([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
 
   React.useEffect(() => {
     const params = {};
     dispatch(fetchMovieTopRated({ params }));
   }, [dispatch]);
 
+  React.useEffect(() => {
+    setMovies(movieTopRated.results);
+    setTotalPages(movieTopRated.total_pages);
+  }, [movieTopRated]);
+
+  const loadMore = () => {
+    const params = { page: page + 1 };
+    dispatch(fetchMovieTopRated({ params }));
+
+    setMovies([...movies, ...movieTopRated.results]);
+    setPage(page + 1);
+  };
   // if (loading) return <div>loading...</div>;
 
   return (
     <Layout>
-      <div className="bg-gray-900">
+      <div className="movies-movies">
         <Container maxWidth="lg">
+          {page < totalPages ? (
+            <div className="btn-loadmore">
+              <OutlineButton onClick={loadMore}>View More</OutlineButton>
+            </div>
+          ) : null}
           <Grid container spacing={3}>
             {movieTopRated?.results?.slice(0, 8).map((item) => {
               return (

@@ -7,9 +7,8 @@ import { fetchMoviePopular } from "../../../store/actions/movie";
 
 import MovieItem from "../../MovieItem";
 import Layout from "../../../HOCs/Layout";
-import Pagination from "../../Pagination";
+// import Pagination from "../../Pagination";
 
-import { Button } from "antd";
 import { OutlineButton } from "../../Button";
 
 import "./style.scss";
@@ -18,7 +17,7 @@ const MoviePopular = () => {
   const dispatch = useDispatch();
   const { moviePopular } = useSelector((state) => state.movies);
 
-  const [movies, setMovies] = React.useState([moviePopular]);
+  const [movies, setMovies] = React.useState([]);
 
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
@@ -26,13 +25,14 @@ const MoviePopular = () => {
   React.useEffect(() => {
     const params = {};
     dispatch(fetchMoviePopular({ params }));
+  }, [dispatch]);
 
+  React.useEffect(() => {
     setMovies(moviePopular.results);
     setTotalPages(moviePopular.total_pages);
-  }, [dispatch, moviePopular.total_pages]);
+  }, [moviePopular]);
 
   const loadMore = () => {
-    // bị render 2 lần page 1
     const params = { page: page + 1 };
     dispatch(fetchMoviePopular({ params }));
 
@@ -41,7 +41,7 @@ const MoviePopular = () => {
   };
 
   const renderHTML = () => {
-    return movies?.map((item, index) => {
+    return movies?.slice(0, 8).map((item, index) => {
       return (
         <Grid key={index} item xs={12} sm={6} md={3}>
           <MovieItem movieItem={item} />
@@ -52,16 +52,16 @@ const MoviePopular = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-900">
+      <div className="movies-movies">
         <Container maxWidth="lg">
+          {page < totalPages ? (
+            <div className="btn-loadmore">
+              <OutlineButton onClick={loadMore}>View More</OutlineButton>
+            </div>
+          ) : null}
           <Grid container spacing={3}>
             {renderHTML()}
           </Grid>
-          {page < totalPages ? (
-            <div className="btn-loadmore">
-              <OutlineButton onClick={loadMore}>Load More</OutlineButton>
-            </div>
-          ) : null}
         </Container>
       </div>
     </Layout>

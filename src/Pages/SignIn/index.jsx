@@ -128,15 +128,16 @@ const SignIn = () => {
               {/* login with google */}
               Or <a href="/signup">register now!</a>
             </Form.Item>
+            <GoogleLogin
+              className="login-btn__google"
+              disabled={false}
+              clientId="587789522957-shusdrrn5e4111sl00ucekle0hjbg04h.apps.googleusercontent.com"
+              buttonText="Login with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_origin"}
+            />
           </Form>
-          <GoogleLogin
-            disabled={false}
-            clientId="587789522957-shusdrrn5e4111sl00ucekle0hjbg04h.apps.googleusercontent.com"
-            buttonText="Login with Google"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-          />
         </div>
       </Layout>
     </>

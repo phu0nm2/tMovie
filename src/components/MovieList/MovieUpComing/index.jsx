@@ -8,10 +8,15 @@ import MovieItem from "../../MovieItem";
 import Layout from "../../../HOCs/Layout";
 
 import "./style.scss";
+import { OutlineButton } from "../../Button";
 
 const MovieUpComing = () => {
   const dispatch = useDispatch();
   const { movieUpcoming } = useSelector((state) => state.movies);
+  const [movies, setMovies] = React.useState([]);
+
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
 
   React.useEffect(() => {
     const params = {};
@@ -19,10 +24,27 @@ const MovieUpComing = () => {
     dispatch(fetchMovieUpComing({ params }));
   }, [dispatch]);
 
+  React.useEffect(() => {
+    setMovies(movieUpcoming.results);
+    setTotalPages(movieUpcoming.total_pages);
+  }, [movieUpcoming]);
+
+  const loadMore = () => {
+    const params = { page: page + 1 };
+    dispatch(fetchMovieUpComing({ params }));
+
+    setMovies([...movies, ...movieUpcoming.results]);
+    setPage(page + 1);
+  };
   return (
     <Layout>
-      <div className="bg-gray-900">
+      <div className="movies-movies">
         <Container maxWidth="lg">
+          {page < totalPages ? (
+            <div className="btn-loadmore">
+              <OutlineButton onClick={loadMore}>View More</OutlineButton>
+            </div>
+          ) : null}
           <Grid container spacing={3}>
             {movieUpcoming?.results?.slice(0, 8).map((item) => {
               return (

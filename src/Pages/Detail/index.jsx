@@ -168,7 +168,7 @@ const Detail = () => {
                 {videos ? (
                   <div className="detail__trailer">{renderTrailer()}</div>
                 ) : (
-                  "Đang cập nhật"
+                  <div>Đang cập nhật</div>
                 )}
               </div>
             </TabPane>

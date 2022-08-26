@@ -4,16 +4,16 @@ import "./style.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/img/logo.jpg";
-import { Button } from "../Button";
+import { Button, OutlineButton } from "../Button";
 import { fetchSearchMovie } from "../../store/actions/movie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { logOut } from "../../store/actions/user";
 
 const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, isLogin } = useSelector((state) => state.user);
   const [keywords, setKeywords] = React.useState("");
 
-  // const [user, setUser] = React.useState(localStorage.getItem("request_token"));
   const headerRef = React.useRef(null);
 
   const navigate = useNavigate();
@@ -35,11 +35,11 @@ const Header = () => {
     dispatch(fetchSearchMovie({ params }, handleRedirect));
   };
 
-  // useEffect(() => {
-  //   const token = user?.request_token;
-
-  //   setUser(localStorage.getItem("request_token"));
-  // }, []);
+  const handleLogOut = () => {
+    if (currentUser) {
+      dispatch(logOut());
+    }
+  };
 
   useEffect(() => {
     const headerFixed = () => {
@@ -61,47 +61,68 @@ const Header = () => {
   }, []);
 
   return (
-    <header ref={headerRef} className="header">
-      <div className="header__wrap ">
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-            tMovies
-          </Link>
-        </div>
-
-        <div className="header__actions">
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="header__form-input"
-              placeholder="Search..."
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
-            />
-          </form>
-        </div>
-
-        <ul className="header__nav">
-          <Link to="/">
-            <div className="header__nav-home">Home</div>
-          </Link>
-
-          {currentUser ? (
-            <div>
-              <div className="header__user--profile">
-                <img src={currentUser.data?.imageUrl} alt="avatar" />
-                <span>{currentUser.data?.familyName}</span>
-              </div>
-            </div>
-          ) : (
-            <Link to="/signin">
-              <Button>Sign in</Button>
+    <>
+      <header ref={headerRef} className="header">
+        <div className="header__wrap ">
+          <div className="logo">
+            <Link to="/">
+              <img src={logo} alt="logo" />
+              tMovies
             </Link>
-          )}
-        </ul>
-      </div>
-    </header>
+          </div>
+
+          <div className="header__actions">
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                className="header__form-input"
+                placeholder="Search..."
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+            </form>
+          </div>
+
+          <ul className="header__nav">
+            <Link to="/">
+              <div className="header__nav-home">Home</div>
+            </Link>
+
+            {isLogin ? (
+              <div className="header__user">
+                <div className="header__user--profile">
+                  {currentUser.user?.providerData.photoURL ? (
+                    <img
+                      src={currentUser.user?.providerData.photoURL}
+                      alt="avatar"
+                    />
+                  ) : (
+                    <img
+                      className="avatar-default"
+                      src={logo}
+                      alt="avatar-default"
+                    />
+                  )}
+
+                  <span>{currentUser.user?.displayName}</span>
+                </div>
+
+                <OutlineButton
+                  className="header__user--logout"
+                  onClick={handleLogOut}
+                >
+                  Log out
+                </OutlineButton>
+              </div>
+            ) : (
+              <Link to="/signin">
+                <Button>Sign In</Button>
+              </Link>
+            )}
+          </ul>
+        </div>
+      </header>
+    </>
   );
 };
 

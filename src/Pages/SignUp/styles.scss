@@ -1,0 +1,29 @@
+.signup {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+  padding-top: 12px;
+  background-image: url(../../assets/img/bg.jpg);
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  align-items: baseline;
+  height: 100vh;
+
+  &__form {
+    width: 300px;
+    padding: 12px 20px !important;
+
+    &-button {
+      margin-right: 2rem;
+    }
+
+    &-text {
+      font-size: 1rem;
+    }
+  }
+
+  .ant-checkbox + span {
+    color: #fff;
+  }
+}

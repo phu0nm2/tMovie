@@ -10,15 +10,53 @@
   align-items: baseline;
   height: 100vh;
 
-  &-form {
+  &__form {
     width: 300px;
     padding: 12px 20px !important;
+
+    &-button {
+      margin-right: 2rem;
+      // span {
+      //   font-size: 16px !important;
+      // }
+    }
+
+    &-res {
+      font-size: 1rem;
+    }
   }
 
   .ant-checkbox + span {
     color: #fff;
   }
 
-  &-btn__google {
+  &-btn__gg {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    padding: 4px 10px;
+    background-color: rgba(255, 0, 0, 0.527);
+    color: #fff;
+    transition: all 0.1 step-end;
+    &:hover {
+      background-color: rgba(255, 0, 0, 0.827);
+    }
+  }
+
+  &-btn__fb {
+    font-size: 1.2rem;
+    border-radius: 50%;
+    background-color: blue;
+    padding: 4px 16px;
+    transition: all 0.8 ease-in-out;
+
+    &-custom {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 255, 0.764);
+    }
   }
 }

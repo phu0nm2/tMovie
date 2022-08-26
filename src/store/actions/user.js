@@ -1,10 +1,11 @@
 import { createAction } from ".";
 // import { tmdbApiUser } from "../../api/apiUser";
 import { actionUsers } from "./type";
-import { auth } from "../../firebase";
+import { auth, googleAuthProvider } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -14,12 +15,12 @@ export const signin =
   (dispatch) => {
     dispatch(createAction(actionUsers.SIGN_IN_REQUEST, {}));
     signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
+      .then(({ user }) => {
         dispatch(createAction(actionUsers.SIGN_IN_SUCCESS, user));
 
         handleRedirect();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(createAction(actionUsers.SIGN_IN_FAILURE, err)));
   };
 
 export const signup =
@@ -35,26 +36,26 @@ export const signup =
       updateProfile(user, { displayName });
       dispatch(createAction(actionUsers.SIGN_UP_SUCCESS, { user }));
 
+      alert("Sign up already success!");
+
       handleRedirect();
     } catch (err) {
       dispatch(createAction(actionUsers.SIGN_UP_FAILURE, err));
     }
   };
 
-export const signinWithGoogle =
-  (values, handleRedirect) => async (dispatch) => {
-    try {
-      dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_REQUEST, {}));
+export const signinWithGoogle = (handleRedirect) => async (dispatch) => {
+  try {
+    dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_REQUEST, {}));
+    const { user } = await signInWithPopup(auth, googleAuthProvider);
+    console.log(user);
 
-      dispatch(
-        createAction(actionUsers.SIGN_IN_WITH_GOOGLE_SUCCESS, { values })
-      );
-
-      handleRedirect();
-    } catch (error) {
-      dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_FAILURE, error));
-    }
-  };
+    dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_SUCCESS, user));
+    handleRedirect();
+  } catch (error) {
+    dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_FAILURE, error));
+  }
+};
 
 export const logOut = () => async (dispatch) => {
   try {
@@ -62,7 +63,6 @@ export const logOut = () => async (dispatch) => {
     await signOut(auth);
     dispatch(createAction(actionUsers.LOGOUT_SUCCESS));
   } catch (err) {
-    console.log(err);
     dispatch(createAction(actionUsers.LOGOUT_FAILURE, {}));
   }
 };

@@ -10,6 +10,12 @@
   align-items: baseline;
   height: 100vh;
 
+  &__title {
+    width: 10%;
+    h1 {
+      color: #fff;
+    }
+  }
   &__form {
     width: 300px;
     padding: 12px 20px !important;

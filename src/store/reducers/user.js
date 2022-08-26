@@ -9,12 +9,6 @@ const initialState = {
 
 const reducers = (state = initialState, { type, payload }) => {
   switch (type) {
-    // setUSer
-    case actionUsers.SET_USER:
-      state.loading = false;
-      state.currentUser = payload;
-      return { ...state };
-
     // sign in
     case actionUsers.SIGN_IN_REQUEST:
       state.loading = true;
@@ -46,8 +40,18 @@ const reducers = (state = initialState, { type, payload }) => {
       return { ...state };
 
     // sign in with google
-    case actionUsers.SIGN_IN_WITH_GOOGLE:
+    case actionUsers.SIGN_IN_WITH_GOOGLE__REQUEST:
+      state.loading = true;
+      return { ...state };
+    case actionUsers.SIGN_IN_WITH_GOOGLE_SUCCESS:
       state.currentUser = payload;
+      state.isLogin = true;
+      state.loading = false;
+      state.error = null;
+      return { ...state };
+    case actionUsers.SIGN_IN_WITH_GOOGLE_FAILURE:
+      state.loading = false;
+      state.error = payload;
       return { ...state };
 
     // log out
@@ -63,6 +67,12 @@ const reducers = (state = initialState, { type, payload }) => {
     case actionUsers.LOGOUT_FAILURE:
       state.loading = false;
       state.error = payload;
+      return { ...state };
+
+    // setUSer
+    case actionUsers.SET_USER:
+      state.loading = false;
+      state.currentUser = payload;
       return { ...state };
 
     default:

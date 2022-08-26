@@ -36,9 +36,16 @@ const SignIn = () => {
     console.log("Failed", errors);
   };
 
-  const hanleGoogleSignIn = () => {};
+  const hanleGoogleSignIn = () => {
+    const handleRedirect = () => {
+      navigate("/");
+    };
+    dispatch(signinWithGoogle(handleRedirect));
+  };
 
-  const hanleFacebookSignIn = () => {};
+  const hanleFacebookSignIn = () => {
+    //
+  };
 
   return (
     <>
@@ -117,6 +124,10 @@ const SignIn = () => {
               <span className="login-btn__fb-custom">f</span>
             </button>
           </Form>
+
+          <div className="login__title">
+            <h1>SIGN IN</h1>
+          </div>
         </div>
       </Layout>
     </>

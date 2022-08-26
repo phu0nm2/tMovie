@@ -127,6 +127,10 @@ const SignUp = () => {
               </Link>
             </Form.Item>
           </Form>
+
+          <div className="signup__title">
+            <h1>SIGN UP FOR FREE NOW</h1>
+          </div>
         </div>
       </Layout>
     </>

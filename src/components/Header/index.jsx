@@ -91,11 +91,8 @@ const Header = () => {
             {isLogin ? (
               <div className="header__user">
                 <div className="header__user--profile">
-                  {currentUser.user?.providerData.photoURL ? (
-                    <img
-                      src={currentUser.user?.providerData.photoURL}
-                      alt="avatar"
-                    />
+                  {currentUser?.photoURL ? (
+                    <img src={currentUser?.photoURL} alt="avatar" />
                   ) : (
                     <img
                       className="avatar-default"
@@ -104,15 +101,12 @@ const Header = () => {
                     />
                   )}
 
-                  <span>{currentUser.user?.displayName}</span>
+                  <span>{currentUser?.displayName}</span>
                 </div>
 
-                <OutlineButton
-                  className="header__user--logout"
-                  onClick={handleLogOut}
-                >
-                  Log out
-                </OutlineButton>
+                <div className="header__user--logout">
+                  <OutlineButton onClick={handleLogOut}>Log out</OutlineButton>
+                </div>
               </div>
             ) : (
               <Link to="/signin">

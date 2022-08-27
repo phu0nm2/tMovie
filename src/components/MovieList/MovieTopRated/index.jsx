@@ -36,7 +36,6 @@ const MovieTopRated = () => {
     setMovies([...movies, ...movieTopRated.results]);
     setPage(page + 1);
   };
-  // if (loading) return <div>loading...</div>;
 
   return (
     <Layout>

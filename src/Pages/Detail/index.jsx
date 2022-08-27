@@ -12,7 +12,6 @@ import {
 } from "../../store/actions/movie";
 import { Tabs } from "antd";
 import YouTube from "react-youtube";
-// import { EyeTwoTone } from "@ant-design/icons";
 
 import "./styles.scss";
 
@@ -160,7 +159,6 @@ const Detail = () => {
                   margin: "0 auto",
                   width: "40%",
                   textAlign: "center",
-                  // border: "1px solid #fff",
                   borderRadius: "10px",
                   padding: "5px 0",
                 }}

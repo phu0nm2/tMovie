@@ -34,8 +34,6 @@ const App = () => {
 
         <Route path="/signin" element={<SignIn />} />
 
-        {/* <Route path="/authenticate" element={<SignIn />} /> */}
-
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/movie/:id" element={<Detail />} />

@@ -64,23 +64,6 @@ const reducers = (state = initialState, { type, payload }) => {
       return { ...state };
     }
 
-    //similar
-    case actionTypes.FETCH_SIMILAR_REQUEST: {
-      state.loading = true;
-      return { ...state };
-    }
-    case actionTypes.FETCH_SIMILAR_SUCCESS: {
-      state.loading = false;
-      state.error = null;
-      state.movieList = payload;
-      return { ...state };
-    }
-    case actionTypes.FETCH_SIMILAR_FAILURE: {
-      state.loading = false;
-      state.error = payload;
-      return { ...state };
-    }
-
     // search
     case actionTypes.FETCH_SEARCH_REQUEST: {
       state.loading = true;

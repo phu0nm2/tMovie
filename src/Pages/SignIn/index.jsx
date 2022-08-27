@@ -33,7 +33,7 @@ const SignIn = () => {
   };
 
   const onFinishFailed = (errors) => {
-    console.log("Failed", errors);
+    // console.log("Failed", errors);
   };
 
   const hanleGoogleSignIn = () => {

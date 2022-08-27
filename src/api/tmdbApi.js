@@ -18,11 +18,6 @@ export const tvType = {
 };
 
 export const tmdbApi = {
-  // getMovieList: (type, params) => {
-  //   const url = "movie/" + movieType[type];
-  //   return axiosClient.get(url, params);
-  // },
-
   getMoviePopular: (params) => {
     const url = "movie/popular";
     return axiosClient.get(url, params);
@@ -35,11 +30,6 @@ export const tmdbApi = {
 
   getMoviesUpComing: (params) => {
     const url = "movie/upcoming";
-    return axiosClient.get(url, params);
-  },
-
-  getTvList: (type, params) => {
-    const url = "tv/" + tvType[type];
     return axiosClient.get(url, params);
   },
 
@@ -65,48 +55,4 @@ export const tmdbApi = {
       },
     });
   },
-
-  credits: (cate, id) => {
-    const url = category[cate] + "/" + id + "/credits";
-    return axiosClient.get(url, { params: {} });
-  },
-
-  similar: (cate, id) => {
-    const url = category[cate] + "/" + id + "/similar";
-    return axiosClient.get(url, { params: {} });
-  },
-
-  // getTvList: (type) => {
-  //   const url = `tv/${tvType[type]}`;
-  //   return axiosClient.get(url, {
-  //     params: { page: 1 },
-  //   });
-  // },
-
-  // similar: (id) => {
-  //   const url = `movie/${id}/similar`;
-  //   return axiosClient.get(url, {
-  //     params: {
-  //       movie_id: id,
-  //     },
-  //   });
-  // },
-
-  // getVideos: (id) => {
-  //   const url = `movie/${id}/movies`;
-  //   return axiosClient.get(url, {
-  //     params: {
-  //       movie_id: id,
-  //     },
-  //   });
-  // },
-
-  // detail: (id) => {
-  //   const url = `movie/${id}`;
-  //   return axiosClient.get(url, {
-  //     params: {
-  //       movie_id: id,
-  //     },
-  //   });
-  // },
 };

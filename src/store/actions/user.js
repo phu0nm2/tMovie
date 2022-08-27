@@ -48,7 +48,6 @@ export const signinWithGoogle = (handleRedirect) => async (dispatch) => {
   try {
     dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_REQUEST, {}));
     const { user } = await signInWithPopup(auth, googleAuthProvider);
-    console.log(user);
 
     dispatch(createAction(actionUsers.SIGN_IN_WITH_GOOGLE_SUCCESS, user));
     handleRedirect();

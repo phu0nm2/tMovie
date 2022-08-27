@@ -30,7 +30,7 @@ const SignUp = () => {
   };
 
   const onFinishFailed = (errors) => {
-    console.log("Failed", errors);
+    // console.log("Failed", errors);
   };
 
   return (

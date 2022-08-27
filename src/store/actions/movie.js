@@ -1,13 +1,12 @@
 import { actionTypes } from "./type";
 import { createAction } from ".";
-import { movieType, tmdbApi } from "../../api/tmdbApi";
+import { tmdbApi } from "../../api/tmdbApi";
 
 export const fetchMoviePopular = (params) => async (dispatch) => {
   try {
     dispatch(createAction(actionTypes.FETCH_POPULAR_REQUEST, {}));
     const { data } = await tmdbApi.getMoviePopular(params);
     dispatch(createAction(actionTypes.FETCH_POPULAR_SUCCESS, data));
-    // console.log("data", data);
   } catch (err) {
     dispatch(createAction(actionTypes.FETCH_POPULAR_FAILURE, err));
   }
@@ -18,7 +17,6 @@ export const fetchMovieTopRated = (params) => async (dispatch) => {
     dispatch(createAction(actionTypes.FETCH_TOP_RATED_REQUEST, {}));
     const { data } = await tmdbApi.getMoviesTopRated(params);
     dispatch(createAction(actionTypes.FETCH_TOP_RATED_SUCCESS, data));
-    // console.log("data", data);
   } catch (err) {
     dispatch(createAction(actionTypes.FETCH_TOP_RATED_FAILURE, err));
   }
@@ -31,16 +29,6 @@ export const fetchMovieUpComing = (params) => async (dispatch) => {
     dispatch(createAction(actionTypes.FETCH_UPCOMING_SUCCESS, data));
   } catch (err) {
     dispatch(createAction(actionTypes.FETCH_UPCOMING_FAILURE, err));
-  }
-};
-
-export const fetchMovieSimilar = (category, id) => async (dispatch) => {
-  try {
-    dispatch(createAction(actionTypes.FETCH_SIMILAR_REQUEST, {}));
-    const { data } = await tmdbApi.similar(category, id);
-    dispatch(createAction(actionTypes.FETCH_SIMILAR_SUCCESS, data.results));
-  } catch (err) {
-    dispatch(createAction(actionTypes.FETCH_SIMILAR_FAILURE, err));
   }
 };
 

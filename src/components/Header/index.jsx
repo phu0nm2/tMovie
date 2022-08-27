@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./style.scss";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,6 +9,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { logOut } from "../../store/actions/user";
 
+import { SearchOutlined } from "@ant-design/icons";
+
+import "./style.scss";
 const Header = () => {
   const { currentUser, isLogin } = useSelector((state) => state.user);
   const [keywords, setKeywords] = React.useState("");
@@ -75,11 +77,14 @@ const Header = () => {
             <form onSubmit={handleSearch}>
               <input
                 type="text"
-                className="header__form-input"
+                className="header__actions-input"
                 placeholder="Search..."
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
               />
+              <div className="header__actions-btn">
+                <SearchOutlined />
+              </div>
             </form>
           </div>
 

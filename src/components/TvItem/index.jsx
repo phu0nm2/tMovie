@@ -5,19 +5,10 @@ import apiConfig from "../../api/apiConfig";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-// import { Button, OutlineButton } from "../Button";
-
 import "./styles.scss";
 
 const TvItem = ({ tvItem }) => {
   let navigate = useNavigate();
-
-  // const watchMovie = () => {
-  //   // navigate.push("/move/ + " + movies.id);
-  //   navigate("/tv/", {
-  //     state: { name: tvItem.id },
-  //   });
-  // };
 
   const { id, overview, poster_path, backdrop_path, name, original_name } =
     tvItem;
@@ -42,14 +33,6 @@ const TvItem = ({ tvItem }) => {
         <p className="text-gray-100 movie-home-text">
           {overview ? overview.substr(0, 100) + ".." : original_name}
         </p>
-
-        {/* <div className="btns">
-          <Button onClick={watchMovie}>Watch now</Button>
-          <Button>Watch now</Button>
-          <OutlineButton onClick={() => console.log("trailer")}>
-            Watch trailer
-          </OutlineButton>
-        </div> */}
       </Link>
     </div>
   );

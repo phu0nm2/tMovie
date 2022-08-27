@@ -7,7 +7,6 @@ import { fetchMoviePopular } from "../../../store/actions/movie";
 
 import MovieItem from "../../MovieItem";
 import Layout from "../../../HOCs/Layout";
-// import Pagination from "../../Pagination";
 
 import { OutlineButton } from "../../Button";
 
